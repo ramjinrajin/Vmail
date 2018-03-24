@@ -17,8 +17,8 @@ namespace SpeechToText
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new UserLogin(false));
-           // Application.Run(new Mailbox());
+           // Application.Run(new UserLogin(false));
+            Application.Run(new ApiAuthenticate());
           //  Application.Run(new ComposeMail(SpeechToText.ComposeMail.Mailtype.ComposeMail, "", "", "", 0));
         }
     }

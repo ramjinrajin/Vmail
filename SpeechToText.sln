@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechToText", "SpeechToText\SpeechToText.csproj", "{BDBE72EB-9EFA-43EC-82A4-3C152EE6F4A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VmailApiAuth", "VmailApiAuth\VmailApiAuth.csproj", "{22B6710A-3D3D-4803-973F-6AE29E35D6DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -24,6 +26,16 @@ Global
 		{BDBE72EB-9EFA-43EC-82A4-3C152EE6F4A5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BDBE72EB-9EFA-43EC-82A4-3C152EE6F4A5}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{BDBE72EB-9EFA-43EC-82A4-3C152EE6F4A5}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{22B6710A-3D3D-4803-973F-6AE29E35D6DE}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{22B6710A-3D3D-4803-973F-6AE29E35D6DE}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{22B6710A-3D3D-4803-973F-6AE29E35D6DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B6710A-3D3D-4803-973F-6AE29E35D6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B6710A-3D3D-4803-973F-6AE29E35D6DE}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B6710A-3D3D-4803-973F-6AE29E35D6DE}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{22B6710A-3D3D-4803-973F-6AE29E35D6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B6710A-3D3D-4803-973F-6AE29E35D6DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22B6710A-3D3D-4803-973F-6AE29E35D6DE}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{22B6710A-3D3D-4803-973F-6AE29E35D6DE}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

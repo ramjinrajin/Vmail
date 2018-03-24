@@ -58,6 +58,12 @@
     <Compile Include="Business\Models\Mail.cs" />
     <Compile Include="Business\Models\User.cs" />
     <Compile Include="Infrastructure\LanguagePackageConfig.cs" />
+    <Compile Include="Presentation Layer\ApiAuthenticate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation Layer\ApiAuthenticate.Designer.cs">
+      <DependentUpon>ApiAuthenticate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation Layer\ComposeMail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +143,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Presentation Layer\ApiAuthenticate.resx">
+      <DependentUpon>ApiAuthenticate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation Layer\ComposeMail.resx">
       <DependentUpon>ComposeMail.cs</DependentUpon>
     </EmbeddedResource>
