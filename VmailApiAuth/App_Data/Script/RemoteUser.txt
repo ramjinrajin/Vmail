@@ -25,9 +25,10 @@ SET @AuthCount=(SELECT AuthCount FROM VmailUser Where Userid=@UserId)
 
   IF(@HITCount=@AuthCount)
     Update VmailUser SET IsAuthenticated=1 Where Userid=@UserId
+ELSE
+	SET @HITCount=(SELECT HITCount FROM VmailUser Where Userid=@UserId)
 
-
-  SET @HITCount=(SELECT HITCount FROM VmailUser Where Userid=@UserId)
+  
 
 
 

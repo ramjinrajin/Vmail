@@ -39,6 +39,12 @@
             this.groupBoxMessages = new System.Windows.Forms.GroupBox();
             this.NoMailLabel = new System.Windows.Forms.Label();
             this.gridviewMails = new System.Windows.Forms.DataGridView();
+            this.ColTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColMsg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColMsgId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCompose = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -52,12 +58,8 @@
             this.lbSignout = new System.Windows.Forms.LinkLabel();
             this.btnDeleteMail = new System.Windows.Forms.Button();
             this.btnRestore = new System.Windows.Forms.Button();
-            this.ColTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColMsg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColMsgId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBoxActions.SuspendLayout();
             this.groupBoxMessages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridviewMails)).BeginInit();
@@ -179,13 +181,52 @@
             this.gridviewMails.Cursor = System.Windows.Forms.Cursors.Hand;
             this.gridviewMails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gridviewMails.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gridviewMails.Location = new System.Drawing.Point(6, 13);
+            this.gridviewMails.Location = new System.Drawing.Point(7, 13);
             this.gridviewMails.MultiSelect = false;
             this.gridviewMails.Name = "gridviewMails";
             this.gridviewMails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridviewMails.Size = new System.Drawing.Size(885, 527);
             this.gridviewMails.TabIndex = 0;
             this.gridviewMails.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // ColTo
+            // 
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Black;
+            this.ColTo.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ColTo.HeaderText = "To";
+            this.ColTo.Name = "ColTo";
+            this.ColTo.Visible = false;
+            this.ColTo.Width = 250;
+            // 
+            // ColFileName
+            // 
+            this.ColFileName.HeaderText = "file";
+            this.ColFileName.Name = "ColFileName";
+            this.ColFileName.Visible = false;
+            // 
+            // ColMsg
+            // 
+            this.ColMsg.HeaderText = "Message";
+            this.ColMsg.Name = "ColMsg";
+            this.ColMsg.Visible = false;
+            // 
+            // ColFrom
+            // 
+            this.ColFrom.HeaderText = "From";
+            this.ColFrom.Name = "ColFrom";
+            this.ColFrom.Width = 250;
+            // 
+            // ColSubject
+            // 
+            this.ColSubject.HeaderText = "Subject";
+            this.ColSubject.Name = "ColSubject";
+            this.ColSubject.Width = 590;
+            // 
+            // ColMsgId
+            // 
+            this.ColMsgId.HeaderText = "msgid";
+            this.ColMsgId.Name = "ColMsgId";
+            this.ColMsgId.Visible = false;
             // 
             // btnCompose
             // 
@@ -305,7 +346,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1103, 9);
+            this.label6.Location = new System.Drawing.Point(1112, 31);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(58, 13);
             this.label6.TabIndex = 4;
@@ -314,7 +355,7 @@
             // lbSignout
             // 
             this.lbSignout.AutoSize = true;
-            this.lbSignout.Location = new System.Drawing.Point(1113, 26);
+            this.lbSignout.Location = new System.Drawing.Point(1122, 48);
             this.lbSignout.Name = "lbSignout";
             this.lbSignout.Size = new System.Drawing.Size(43, 13);
             this.lbSignout.TabIndex = 5;
@@ -348,44 +389,26 @@
             this.btnRestore.UseVisualStyleBackColor = false;
             this.btnRestore.Click += new System.EventHandler(this.btnRestore_Click);
             // 
-            // ColTo
+            // button10
             // 
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Black;
-            this.ColTo.DefaultCellStyle = dataGridViewCellStyle1;
-            this.ColTo.HeaderText = "To";
-            this.ColTo.Name = "ColTo";
-            this.ColTo.Visible = false;
-            this.ColTo.Width = 250;
+            this.button10.BackColor = System.Drawing.Color.Red;
+            this.button10.Location = new System.Drawing.Point(1149, 0);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(33, 25);
+            this.button10.TabIndex = 18;
+            this.button10.Text = "X";
+            this.button10.UseVisualStyleBackColor = false;
             // 
-            // ColFileName
+            // button1
             // 
-            this.ColFileName.HeaderText = "file";
-            this.ColFileName.Name = "ColFileName";
-            this.ColFileName.Visible = false;
-            // 
-            // ColMsg
-            // 
-            this.ColMsg.HeaderText = "Message";
-            this.ColMsg.Name = "ColMsg";
-            this.ColMsg.Visible = false;
-            // 
-            // ColFrom
-            // 
-            this.ColFrom.HeaderText = "From";
-            this.ColFrom.Name = "ColFrom";
-            this.ColFrom.Width = 250;
-            // 
-            // ColSubject
-            // 
-            this.ColSubject.HeaderText = "Subject";
-            this.ColSubject.Name = "ColSubject";
-            this.ColSubject.Width = 590;
-            // 
-            // ColMsgId
-            // 
-            this.ColMsgId.HeaderText = "msgid";
-            this.ColMsgId.Name = "ColMsgId";
-            this.ColMsgId.Visible = false;
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(1119, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 25);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "-";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Mailbox
             // 
@@ -393,6 +416,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SpeechToText.Properties.Resources.circles_highlights_background_form_size_47438_3840x24001;
             this.ClientSize = new System.Drawing.Size(1182, 714);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.btnDeleteMail);
             this.Controls.Add(this.btnRestore);
             this.Controls.Add(this.lbSignout);
@@ -403,7 +428,7 @@
             this.Controls.Add(this.btnCompose);
             this.Controls.Add(this.groupBoxMessages);
             this.Controls.Add(this.groupBoxActions);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -451,5 +476,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColFrom;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSubject;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColMsgId;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button1;
     }
 }

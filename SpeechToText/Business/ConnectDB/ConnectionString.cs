@@ -9,8 +9,25 @@ using System.Configuration;
 
 namespace SpeechToText.Business.ConnectDB
 {
+
+    public static class ConnectRemoteSql
+    {
+        public static string GetConnectionString
+        {
+            get
+            {
+                return "workstation id=SinglePageApp.mssql.somee.com;packet size=4096;user id=inzcloud_SQLLogin_1;pwd=8x5hm9hl6g;data source=SinglePageApp.mssql.somee.com;persist security info=False;initial catalog=SinglePageApp";
+
+            }
+        }
+    }
+
+
     public class ExecuteSql
     {
+
+
+
 
         public static SqlConnection SqlConnect()
         {

@@ -12,6 +12,15 @@ namespace SpeechToText.Business.Methods
 {
     class UserBusinessModel
     {
+        public int GenerateRandomHitCount
+        {
+            get
+            {
+                Random rnd = new Random();
+                int RandomNumber = rnd.Next(1, 9);
+                return RandomNumber;
+            }
+        }
         #region Users
 
         public bool InsertUsertoDatabase(User _user)
@@ -69,6 +78,71 @@ namespace SpeechToText.Business.Methods
             return listuser;
         }
 
+
+        public bool IsAuthenticatedByApi(int UserId)
+        {
+            using (SqlConnection con = new SqlConnection(ConnectRemoteSql.GetConnectionString))
+            {
+
+                bool IsValid = false; ;
+                try
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT TOP 1 IsAuthenticated From VmailUser Where UserId=@UserId", con);
+                    cmd.Parameters.AddWithValue("@UserId", UserId);
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    if(rdr.HasRows)
+                    {
+                        while(rdr.Read())
+                        {
+                            IsValid = Convert.ToInt32(rdr["IsAuthenticated"]) == 1;
+                        }
+                    }
+
+                    return IsValid;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        internal int GenerateBandHitCode(int userID)
+        {
+            int RandomNumberSet = GenerateRandomHitCount;
+            using (SqlConnection con = new SqlConnection(ConnectRemoteSql.GetConnectionString))
+            {
+
+                 
+                try
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("DELETE FROM VmailUser Where UserId=@UserId Insert into VmailUser(Userid,AuthCount,HITCount,IsAuthenticated) Values (@UserId,@HitCount,0,0)", con);
+                    cmd.Parameters.AddWithValue("@UserId", userID);
+                    cmd.Parameters.AddWithValue("@HitCount", RandomNumberSet);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                    return RandomNumberSet;
+
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
 
         public static int GetUser(string EmailId)
         {

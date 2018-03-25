@@ -72,10 +72,9 @@
             // txtUsername
             // 
             this.txtUsername.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold);
-            this.txtUsername.Location = new System.Drawing.Point(155, 97);
-            this.txtUsername.Multiline = true;
+            this.txtUsername.Location = new System.Drawing.Point(154, 108);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(357, 51);
+            this.txtUsername.Size = new System.Drawing.Size(357, 33);
             this.txtUsername.TabIndex = 19;
             // 
             // label1

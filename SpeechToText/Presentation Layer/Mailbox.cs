@@ -748,8 +748,10 @@ namespace SpeechToText
                 f.Hide();
             }
 
-            UserLogin userloginfrm = new UserLogin(true);
-            userloginfrm.Show();
+            //UserLogin userloginfrm = new UserLogin(true);
+            //userloginfrm.Show();
+            ApiAuthenticate auth = new ApiAuthenticate();
+            auth.Show();
 
 
         }
@@ -941,10 +943,9 @@ namespace SpeechToText
             CmdReader = "Nil";
         }
 
-
-
-
-
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("How dare you");
+        }
     }
 }

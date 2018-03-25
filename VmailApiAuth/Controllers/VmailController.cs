@@ -18,9 +18,6 @@ namespace VmailApiAuth.Controllers
             int i = 0;
             objAuthenticator.GetHitCount(UserId);
 
-
-
-
             return i;
         }
     }

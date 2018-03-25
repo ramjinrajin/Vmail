@@ -586,3 +586,33 @@ F:\Projects\Inzenjer\Vmail-Heera (with Api Auth)\Git\Vmail\SpeechToText\obj\Debu
 F:\Projects\Inzenjer\Vmail-Heera (with Api Auth)\Git\Vmail\SpeechToText\obj\Debug\SpeechToText.Options.resources
 F:\Projects\Inzenjer\Vmail-Heera (with Api Auth)\Git\Vmail\SpeechToText\obj\Debug\SpeechToText.Properties.Resources.resources
 F:\Projects\Inzenjer\Vmail-Heera (with Api Auth)\Git\Vmail\SpeechToText\obj\Debug\SpeechToText.csproj.GenerateResource.Cache
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\bin\Debug\SpeechToText.exe.config
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.exe
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.pdb
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\bin\Debug\Resources\SqlScripts\CreateDB.sql
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\bin\Debug\Resources\SqlScripts\CreateUserTable.sql
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\bin\Debug\Resources\SqlScripts\InsertMail.sql
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\bin\Debug\Resources\SqlScripts\ProcSaveDraft.Sql
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\bin\Debug\Resources\SqlScripts\ProcSentMail.sql
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\bin\Debug\Resources\SqlScripts\CreateSuperUser.sql
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\bin\Debug\SpeechToText.exe
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\bin\Debug\SpeechToText.pdb
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.csprojResolveAssemblyReference.cache
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.Presentation_Layer.ApiAuthenticate.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.ComposeMail.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.CreateUser.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.DeleteUser.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.Presentation_Layer.ChangePassword.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.Presentation_Layer.ForgotPassword.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.Presentation_Layer.SQLDBConnection.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.Presentation_Layer.HelpMaster.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.Presentation_Layer.MailView.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.Presentation_Layer.UserLogin.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.WelcomeScreen.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.Mailbox.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.Options.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.Properties.Resources.resources
+C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.csproj.GenerateResource.Cache
+\\DESKTOP-GENB0UD\Net Share\fg\v18 Version\Bootstap col2\Vmail\SpeechToText\bin\Debug\SpeechToText.exe.config
+\\DESKTOP-GENB0UD\Net Share\fg\v18 Version\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.exe
+\\DESKTOP-GENB0UD\Net Share\fg\v18 Version\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.pdb
