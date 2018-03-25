@@ -616,3 +616,6 @@ C:\Users\ramjin.mahadevan\Desktop\Bootstap col2\Vmail\SpeechToText\obj\Debug\Spe
 \\DESKTOP-GENB0UD\Net Share\fg\v18 Version\Bootstap col2\Vmail\SpeechToText\bin\Debug\SpeechToText.exe.config
 \\DESKTOP-GENB0UD\Net Share\fg\v18 Version\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.exe
 \\DESKTOP-GENB0UD\Net Share\fg\v18 Version\Bootstap col2\Vmail\SpeechToText\obj\Debug\SpeechToText.pdb
+F:\Projects\Inzenjer\Vmail-Heera (with Api Auth)\Git v2\SpeechToText\bin\Debug\SpeechToText.exe.config
+F:\Projects\Inzenjer\Vmail-Heera (with Api Auth)\Git v2\SpeechToText\obj\Debug\SpeechToText.exe
+F:\Projects\Inzenjer\Vmail-Heera (with Api Auth)\Git v2\SpeechToText\obj\Debug\SpeechToText.pdb
