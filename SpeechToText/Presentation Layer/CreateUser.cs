@@ -75,7 +75,8 @@ namespace SpeechToText
                                 if (_createUser.CreateUSer(_user))
                                 {
                                     MessageBox.Show("New user created sucessfully", "Sucess", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                                    UserLogin ul = new UserLogin(true);
+                                    //UserLogin ul = new UserLogin(true);
+                                    ApiAuthenticate ul = new ApiAuthenticate();
                                     List<Form> forms = new List<Form>();
                                     // All opened myForm instances
                                     foreach (Form f in Application.OpenForms)

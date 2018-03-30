@@ -9,6 +9,7 @@ using System.Linq;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -29,10 +30,13 @@ namespace SpeechToText.Presentation_Layer
         bool KeyPress;
         int _msgId;
         string _attachment;
+        bool _IsReply;
 
-        public MailView(int MsgId, bool IsSentMail, string FromEmail, string Subject, string Message,string Attachment)
+        public MailView(int MsgId, bool IsSentMail, string FromEmail, string Subject, string Message,string Attachment,bool IsReply)
         {
+            _IsReply = IsReply;
             synth.SetOutputToDefaultAudioDevice();
+      
             InitializeComponent();
             _fromEmail = FromEmail;
             _Subject = Subject;
@@ -60,8 +64,36 @@ namespace SpeechToText.Presentation_Layer
                 linkLabel1.Visible = true;
                 linkLabel1.Text = Attachment;
             }
+            if(IsReply)
+            {
+                ReplyMail();
+                txtMsg.Focus();
+            }
+        }
 
-          
+        public SpeechRecognitionEngine _recognizer = null;
+        public ManualResetEvent manualResetEvent = null;
+        public void SpeechRecognitionWithDictationGrammar()
+        {
+            _recognizer = new SpeechRecognitionEngine();
+            _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("compose mail")));
+            _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("Open compose Window")));
+            _recognizer.LoadGrammar(new DictationGrammar());
+            _recognizer.SpeechRecognized += speechRecognitionWithDictationGrammar_SpeechRecognized;
+            _recognizer.SetInputToDefaultAudioDevice();
+            _recognizer.RecognizeAsync(RecognizeMode.Multiple);
+        }
+
+        private void speechRecognitionWithDictationGrammar_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            if (e.Result.Text == "Forward")
+            {
+                GenerateForwardMail();
+            }
+            if (e.Result.Text == "Reply")
+            {
+                ReplyMail();
+            }
         }
 
         private void SpeechToTextalgorithm()
@@ -74,7 +106,7 @@ namespace SpeechToText.Presentation_Layer
 
             Choices slist = new Choices();
             slist.Add(new string[] { 
-                "Forward",         
+                "Forward","Reply"         
                 });
             Grammar gr = new Grammar(new GrammarBuilder(slist));
 
@@ -101,7 +133,10 @@ namespace SpeechToText.Presentation_Layer
             {
                 GenerateForwardMail();
             }
-
+            if (e.Result.Text == "Reply")
+            {
+                ReplyMail();
+            }
         }
 
 
@@ -172,6 +207,12 @@ namespace SpeechToText.Presentation_Layer
 
         private void ReplyMail()
         {
+            if(_IsReply)
+            {
+                ComposeMail replycompose = new ComposeMail(SpeechToText.ComposeMail.Mailtype.ReplyMail, _fromEmail, _Subject, _Message, 0);
+                replycompose.ShowDialog();
+                return;
+            }
             // this.Close();
             List<Form> forms = new List<Form>();
 

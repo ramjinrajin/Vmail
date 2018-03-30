@@ -392,17 +392,18 @@
             // button10
             // 
             this.button10.BackColor = System.Drawing.Color.Red;
-            this.button10.Location = new System.Drawing.Point(1149, 0);
+            this.button10.Location = new System.Drawing.Point(1153, -2);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(33, 25);
             this.button10.TabIndex = 18;
             this.button10.Text = "X";
             this.button10.UseVisualStyleBackColor = false;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(1119, 0);
+            this.button1.Location = new System.Drawing.Point(1124, -2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(33, 25);
             this.button1.TabIndex = 19;

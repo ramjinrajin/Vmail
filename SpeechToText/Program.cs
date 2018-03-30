@@ -1,4 +1,5 @@
 ﻿using SpeechToText.Presentation_Layer;
+using SpeechToText.Presentation_Layer.SessionData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,10 @@ namespace SpeechToText
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-           // Application.Run(new UserLogin(false));
-            Application.Run(new ApiAuthenticate());
-          //  Application.Run(new ComposeMail(SpeechToText.ComposeMail.Mailtype.ComposeMail, "", "", "", 0));
+            // Application.Run(new UserLogin(false));
+            LoginCredentials.LoggedEmailId = "heeracollegeofengineering@microsoftmail.com";
+            Application.Run(new Mailbox());
+           
         }
     }
 }

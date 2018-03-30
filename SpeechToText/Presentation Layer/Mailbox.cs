@@ -55,7 +55,7 @@ namespace SpeechToText
             SpeechSynthesizer synth = new SpeechSynthesizer();
             synth.SetOutputToDefaultAudioDevice();
 
-            await Task.Delay(500);
+            await Task.Delay(100);
             if (SpeechModule.GetStatus())
             {
                 GreetingMsg();
@@ -64,9 +64,9 @@ namespace SpeechToText
         }
 
 
-        static SpeechRecognitionEngine _recognizer = null;
-        static ManualResetEvent manualResetEvent = null;
-        static void SpeechRecognitionWithDictationGrammar()
+        SpeechRecognitionEngine _recognizer = null;
+        ManualResetEvent manualResetEvent = null;
+        void SpeechRecognitionWithDictationGrammar()
         {
             _recognizer = new SpeechRecognitionEngine();
             _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("compose mail")));
@@ -78,13 +78,13 @@ namespace SpeechToText
         }
 
         string SearchWord = "";
-        public static void speechRecognitionWithDictationGrammar_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        public void speechRecognitionWithDictationGrammar_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             SpeechSynthesizer synth = new SpeechSynthesizer();
             synth.SetOutputToDefaultAudioDevice();
-           
-           // MessageBox.Show(string.Format("you just told {0}",e.Result.Text));
-            if (e.Result.Text.Trim().Contains("compose mail") 
+
+            // MessageBox.Show(string.Format("you just told {0}",e.Result.Text));
+            if (e.Result.Text.Trim().Contains("compose mail")
                 || e.Result.Text.Trim().Contains("Open compose Window")
                 || e.Result.Text.Trim().Contains("Open compose Window"))
             {
@@ -93,19 +93,34 @@ namespace SpeechToText
                 //DoAction(e.Result.Text);
 
             }
-            else if(e.Result.Text.Trim().Contains("ok vmail can you read"))
+            else if (e.Result.Text.Trim().Contains("ok vmail can you read"))
             {
-                 DoAction(e.Result.Text);
+                DoAction(e.Result.Text);
             }
             else if (e.Result.Text.Trim().Contains("Open the draft"))
             {
-              // DraftMailLoad();
+                // DraftMailLoad();
+            }
+            else if (e.Result.Text.ToLower().Contains("Reply to this mail".ToLower()))
+            {
+                if (ChooseMail)
+                {
+                    
+                     MailView _mailViewForm = new MailView(FilterMail.MsgId, false, FilterMail.FromEmailId,FilterMail.Subject, FilterMail.Message, FilterMail.FileName,true);
+                    _mailViewForm.Show();
+                }
+                else
+                {
+                    synth.Speak("Please read a mail before reply");
+                }
+            }
+            else if (e.Result.Text.Trim().Contains("signout") || e.Result.Text.Trim().Contains("seven"))
+            {
+                Signout();
             }
             else
             {
-                //MessageBox.Show(e.Result.Text);
-                //synth.Speak(string.Format("You told {0}", e.Result.Text));
-                //synth.Speak(string.Format("Invalid command", e.Result.Text));
+                txtSearch.Text = e.Result.Text;
             }
         }
 
@@ -113,39 +128,39 @@ namespace SpeechToText
         {
             string RecognizedText = text;
 
-         
-
-             
-
-                 
-                     
-                        string Number = testc(RecognizedText);// StaticConvertToNumberic(RecognizedText.ToLower());
-                        if (Number != "" && Number != "NIL")
-                        {
-                            int n;
-                            bool isNumeric = int.TryParse(Number, out n);
-
-                            if (isNumeric)
-                            {
-                                StaticMailNo = Convert.ToInt32(Number);
-                                StaticReadMailByNo(StaticMailNo);
-                                RecognizedText = "";
-                            }
-
-
-                             
-                        }
-                   
 
 
 
-                
-
-       
 
 
 
-           
+            string Number = testc(RecognizedText);// StaticConvertToNumberic(RecognizedText.ToLower());
+            if (Number != "" && Number != "NIL")
+            {
+                int n;
+                bool isNumeric = int.TryParse(Number, out n);
+
+                if (isNumeric)
+                {
+                    StaticMailNo = Convert.ToInt32(Number);
+                    StaticReadMailByNo(StaticMailNo);
+                    RecognizedText = "";
+                }
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
         }
 
         private static string testc(string v)
@@ -154,8 +169,8 @@ namespace SpeechToText
             string Number = v.Replace("ok vmail can you read the mail", "");
             string[] words = v.Split(' ');
             int Count = words.Count();
-            Number = words[Count-1];
-            if (Number==""||Number==" ")
+            Number = words[Count - 1];
+            if (Number == "" || Number == " ")
             {
                 return "NIL";
             }
@@ -174,12 +189,12 @@ namespace SpeechToText
                 {
                     Number = Number.Replace(Replacer, "");
                 }
-            
+
                 else
                 {
                     return "NIL";
                 }
-                   
+
 
 
             }
@@ -232,7 +247,7 @@ namespace SpeechToText
 
             List<string> ListCommands = new List<string>
         {
-    
+
                 "Read the mail "//dont remove space
         };
 
@@ -244,19 +259,19 @@ namespace SpeechToText
                     if (cmd == "Read the mail ")
                     {
                         string Number = StaticConvertToNumberic(RecognizedText.ToLower());
-                        if (Number != "" && Number!="NIL")
+                        if (Number != "" && Number != "NIL")
                         {
                             int n;
-                            bool isNumeric = int.TryParse(Number,out n);
-                            
+                            bool isNumeric = int.TryParse(Number, out n);
+
                             if (isNumeric)
                             {
                                 MailNo = Convert.ToInt32(Number);
                                 ReadMailByNo(MailNo);
                                 RecognizedText = "";
                             }
-                         
-                           
+
+
                             return RecognizedText;
                         }
                     }
@@ -267,7 +282,7 @@ namespace SpeechToText
                         return RecognizedText;
                     }
 
-                  
+
 
                 }
 
@@ -280,11 +295,11 @@ namespace SpeechToText
         }
 
 
-        public  string StaticConvertToNumberic(string NumberAlphabets)
+        public string StaticConvertToNumberic(string NumberAlphabets)
         {
             string Replacer;
             string Number = NumberAlphabets.Replace("read the mail ", "");
-            if (Number==""||Number==" ")
+            if (Number == "" || Number == " ")
             {
                 return "NIL";
             }
@@ -294,7 +309,7 @@ namespace SpeechToText
                 "zero0", "one1", "two2", "three3", "four4", "five5", "six6", "seven7", "eight8", "nine9", "ten10", "eleven11", "twelve12", "thirteen13", "fourteen14", "fifteen15", "sixteen16", "seventeen17", "eighteen18", "nineteen19"
             };
 
-            //  string[] words = NumberAlphabets.Split(' ');
+            string[] words = NumberAlphabets.Split(' ');
 
             //  if (words.Count() == 1)
             {
@@ -303,12 +318,12 @@ namespace SpeechToText
                 {
                     Number = Number.Replace(Replacer, "");
                 }
-            
+
                 else
                 {
                     return "NIL";
                 }
-                   
+
 
 
             }
@@ -409,7 +424,7 @@ namespace SpeechToText
 
         }
 
-        private System.Windows.Forms.Timer timer1 ;
+        private System.Windows.Forms.Timer timer1;
         public void InitTimer()
         {
             System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
@@ -471,9 +486,9 @@ namespace SpeechToText
                     string Subject = gridviewMails.SelectedRows[0].Cells["ColSubject"].Value.ToString();
                     string Msg = gridviewMails.SelectedRows[0].Cells["ColMsg"].Value.ToString();
                     int MsgId = (int)gridviewMails.SelectedRows[0].Cells["ColMsgId"].Value;
-                    string FileName =  gridviewMails.SelectedRows[0].Cells["ColFileName"].Value.ToString();
+                    string FileName = gridviewMails.SelectedRows[0].Cells["ColFileName"].Value.ToString();
                     MakeMailAsRead();
-                    MailView _mailViewForm = new MailView(MsgId, false, FromMail, Subject, Msg, FileName);
+                    MailView _mailViewForm = new MailView(MsgId, false, FromMail, Subject, Msg, FileName, false);
                     _mailViewForm.ShowDialog();
                     LoadInboxMails();
 
@@ -503,7 +518,7 @@ namespace SpeechToText
                     string Msg = gridviewMails.SelectedRows[0].Cells["ColMsg"].Value.ToString();
                     int MsgId = (int)gridviewMails.SelectedRows[0].Cells["ColMsgId"].Value;
                     string FileName = gridviewMails.SelectedRows[0].Cells["ColFileName"].Value.ToString();
-                    MailView _mailViewForm = new MailView(MsgId, true, FromMail, Subject, Msg, FileName);
+                    MailView _mailViewForm = new MailView(MsgId, true, FromMail, Subject, Msg, FileName, false);
                     _mailViewForm.ShowDialog();
                     LoadSentMails();
                 }
@@ -607,8 +622,13 @@ namespace SpeechToText
 
 
         }
+
+
+        bool ChooseMail = false;
+        Mail FilterMail = null;
         private void ReadMailByNo(int i)
         {
+            string text;
             if (i != 0)
             {
                 if (SpeechModule.GetStatus())
@@ -621,16 +641,31 @@ namespace SpeechToText
 
                         if (listmails.Count >= i)
                         {
+                            FilterMail = listmails.ElementAt(i - 1);
+
                             synth.SetOutputToDefaultAudioDevice();
-                            Mail FilterMail = listmails.ElementAt(i-1);
+
                             synth.Speak("Message " + i.ToString());
                             synth.Speak("From " + FilterMail.FromEmailId);
                             synth.Speak("Subject" + FilterMail.Subject);
                             synth.Speak("Message " + FilterMail.Message);
-                      }
+                            if(FilterMail.FileName!="NIL")
+                            {
+                                var fileStream = new FileStream(string.Format(@"D:\test\{0}.txt", FilterMail.FileName), FileMode.Open, FileAccess.Read);
+                                using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+                                {
+                                    text = streamReader.ReadToEnd();
+                                    synth.Speak(text);
+                                }
+                            }
+                           
+                            ChooseMail = true;
+                            //   MailView _mailViewForm = new MailView(FilterMail.MsgId, false, FilterMail.FromEmailId,FilterMail.Subject, FilterMail.Message, FilterMail.FileName);
+                            //_mailViewForm.ShowDialog();
+                        }
                         else
                         {
-                            synth.Speak("You have only " + listmails.Count+" mail");
+                            synth.Speak("You have only " + listmails.Count + " mail");
                         }
 
                     }
@@ -731,6 +766,12 @@ namespace SpeechToText
 
         private void lbSignout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            Signout();
+
+        }
+
+        private static void Signout()
+        {
             // this.Close();
             List<Form> forms = new List<Form>();
 
@@ -752,8 +793,6 @@ namespace SpeechToText
             //userloginfrm.Show();
             ApiAuthenticate auth = new ApiAuthenticate();
             auth.Show();
-
-
         }
 
         private void btnSent_Click(object sender, EventArgs e)
@@ -945,7 +984,12 @@ namespace SpeechToText
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("How dare you");
+            synth.Speak("Someone is trying to minimize this application");
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            synth.Speak("Someone is trying to close this application");
         }
     }
 }

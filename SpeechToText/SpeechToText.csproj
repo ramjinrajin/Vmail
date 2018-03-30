@@ -11,6 +11,21 @@
     <AssemblyName>SpeechToText</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -160,6 +175,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation Layer\ForgotPassword.resx">
       <DependentUpon>ForgotPassword.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation Layer\GetDBconnection.resx">
       <DependentUpon>GetDBconnection.cs</DependentUpon>
@@ -192,6 +208,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="bin\Debug\SpeechToText.exe.config" />
+    <None Include="bin\Debug\SpeechToText.vshost.exe.config" />
+    <None Include="bin\Debug\SpeechToText.vshost.exe.manifest" />
+    <None Include="bin\Debug\SQL Scripts\desktop.ini" />
+    <None Include="bin\Release\SpeechToText.exe.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -207,6 +228,39 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio-folder.ico" />
+    <Content Include="bin\Debug\log.txt" />
+    <Content Include="bin\Debug\Resources\SqlScripts\CreateDB.sql" />
+    <Content Include="bin\Debug\Resources\SqlScripts\CreateSuperUser.sql" />
+    <Content Include="bin\Debug\Resources\SqlScripts\CreateUserTable.sql" />
+    <Content Include="bin\Debug\Resources\SqlScripts\InsertMail.sql" />
+    <Content Include="bin\Debug\Resources\SqlScripts\ProcSaveDraft.Sql" />
+    <Content Include="bin\Debug\Resources\SqlScripts\ProcSentMail.sql" />
+    <Content Include="bin\Debug\SpeechToText.exe" />
+    <Content Include="bin\Debug\SpeechToText.pdb" />
+    <Content Include="bin\Debug\SpeechToText.vshost.exe" />
+    <Content Include="bin\Debug\SQL Scripts\CreateDB.sql" />
+    <Content Include="bin\Debug\SQL Scripts\CreateMailTable.txt" />
+    <Content Include="bin\Debug\SQL Scripts\CreateSuperUser.sql" />
+    <Content Include="bin\Debug\SQL Scripts\CreateUserTable.sql" />
+    <Content Include="bin\Debug\SQL Scripts\InsertMail.sql" />
+    <Content Include="bin\Debug\SQL Scripts\ProcSaveDraft.Sql" />
+    <Content Include="bin\Debug\SQL Scripts\ProcSearchMail.sql" />
+    <Content Include="bin\Debug\SQL Scripts\ProcSentMail.sql" />
+    <Content Include="bin\Debug\YCET.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\Debug\YCET_log.ldf">
+      <DependentUpon>YCET.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\Release\Resources\SqlScripts\CreateDB.sql" />
+    <Content Include="bin\Release\Resources\SqlScripts\CreateSuperUser.sql" />
+    <Content Include="bin\Release\Resources\SqlScripts\CreateUserTable.sql" />
+    <Content Include="bin\Release\Resources\SqlScripts\InsertMail.sql" />
+    <Content Include="bin\Release\Resources\SqlScripts\ProcSaveDraft.Sql" />
+    <Content Include="bin\Release\Resources\SqlScripts\ProcSentMail.sql" />
+    <Content Include="bin\Release\SpeechToText.exe" />
+    <Content Include="bin\Release\SpeechToText.pdb" />
     <Content Include="Presentation Layer\Preconditions\WelcomeMsg.txt" />
     <None Include="Resources\2251bf83.png" />
     <None Include="Resources\SqlScripts\CreateDB.sql">
@@ -230,7 +284,13 @@
     <None Include="Resources\1482790123_speaker_louder.ico" />
     <None Include="Resources\1_003.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

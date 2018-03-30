@@ -20,9 +20,11 @@ namespace SpeechToText.Presentation_Layer
     public partial class ApiAuthenticate : Form
     {
         SpeechSynthesizer synth = new SpeechSynthesizer();
+     
         public ApiAuthenticate()
         {
             InitializeComponent();
+            synth.SetOutputToDefaultAudioDevice();
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -34,8 +36,8 @@ namespace SpeechToText.Presentation_Layer
         List<string> listEmails = null;
         private void ApiAuthenticate_Load(object sender, EventArgs e)
         {
-            synth.Speak("HI");
-            synth.Speak("Please say your emailId");
+            synth.SpeakAsync("Hello");
+            synth.SpeakAsync("Please say your emailId");
             LblInvaliduser.Visible = false;
             Msg.Visible = false;
             Loader.Visible = false;
@@ -67,9 +69,9 @@ namespace SpeechToText.Presentation_Layer
             
             bool IsInvaliduser = true;
             bool Isvaliduser = false;
-            synth.SetOutputToDefaultAudioDevice();
+     
             // synth.Speak(string.Format("You told {0}", e.Result.Text));
-            MessageBox.Show(e.Result.Text); 
+            //MessageBox.Show(e.Result.Text); 
             foreach (var Email in listEmails)
             {
                // if(true)
@@ -81,7 +83,7 @@ namespace SpeechToText.Presentation_Layer
                     Msg.Visible = true;
                     Loader.Visible = true;
                     verifiedUserEmailId = Email;
-                    synth.Speak(string.Format("hi {0}", Email));
+                    synth.Speak(string.Format("Hello {0}", Email));
                     synth.Speak("Welcome Back");
                     UserBusinessModel UserModel = new UserBusinessModel();
                    int HitCount=  UserModel.GenerateBandHitCode(UserBusinessModel.GetUser(verifiedUserEmailId));

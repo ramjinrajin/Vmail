@@ -14,6 +14,7 @@ using System.Linq;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -41,12 +42,13 @@ namespace SpeechToText
             _tomail = ToMail;
             _subject = Subject;
             _message = Message;
-            _msg_id = MsgId;          
+            _msg_id = MsgId;
             InitializeComponent();
             //SpeechToTextalgorithm();
             WelcomeMessage();
             this.KeyPreview = true;
             //SpeechToTextalgorithm();
+            synth.SetOutputToDefaultAudioDevice();
         }
 
 
@@ -64,16 +66,16 @@ namespace SpeechToText
             SpeechSynthesizer synth = new SpeechSynthesizer();
             SpeechRecognitionEngine _recognizer = new SpeechRecognitionEngine();
             _recognizer.RecognizeAsync(RecognizeMode.Single);
-            synth.SetOutputToDefaultAudioDevice();
-            
+
+
             synth.Speak("You are in Compose mail window");
             synth.Speak("Say tab or press tab to goto the next field");
             synth.Speak("Enter the recipient email id");
-            
+
             //synth.Speak("Please say next to move on to next control");
             //synth.Speak("Please say read email to read the email");
             //SpeechToTextalgorithm();
- 
+
         }
 
 
@@ -84,8 +86,8 @@ namespace SpeechToText
 
             List<string> ListCommands = new List<string>
         {
-                "go to email", 
-                "go to subject", 
+                "go to email",
+                "go to subject",
                 "go to message"
         };
 
@@ -121,16 +123,16 @@ namespace SpeechToText
             //{
             //    richTextBox1_Leave();
             //}
-            if (Command  == "go to email")
+            if (Command == "go to email")
             {
                 txtEmail.Focus();
             }
-            else if (Command  == "go to subject")
+            else if (Command == "go to subject")
             {
                 txtSubject.Focus();
             }
 
-            else if (Command  == "go to message")
+            else if (Command == "go to message")
             {
                 richTextBox1.Focus();
             }
@@ -151,16 +153,16 @@ namespace SpeechToText
 
         private void SpeechToTextalgorithm()
         {
-           // richTextBox1.Focus();
- 
+            // richTextBox1.Focus();
+
             PromptBuilder pbuilder = new PromptBuilder();
             SpeechRecognitionEngine sregEngine = new SpeechRecognitionEngine();
 
 
             Choices slist = new Choices();
-            slist.Add(new string[] { 
-                "go to email", 
-                "go to subject", 
+            slist.Add(new string[] {
+                "go to email",
+                "go to subject",
                 "go to message"
                 
                 //"Read email",
@@ -236,21 +238,196 @@ namespace SpeechToText
 
         private void FocusControl()
         {
-            if(txtEmail.Text=="")
+            if (txtEmail.Text == "")
             {
                 synth.Speak("Email id cannot be empty please say a email id");
                 txtEmail.Focus();
 
             }
-            else if(txtSubject.Text=="")
+            else if (txtSubject.Text == "")
             {
                 synth.Speak("Please say a subject for this mail");
                 txtSubject.Focus();
             }
-            else if (richTextBox1.Text=="")
+            else if (richTextBox1.Text == "")
             {
-              synth.Speak("Please tell your message for the recipient");
-              richTextBox1.Focus();
+                synth.Speak("Please tell your message for the recipient");
+                richTextBox1.Focus();
+            }
+        }
+
+        public SpeechRecognitionEngine _recognizer = null;
+        public ManualResetEvent manualResetEvent = null;
+        public void SpeechRecognitionWithDictationGrammar()
+        {
+            _recognizer = new SpeechRecognitionEngine();
+            _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("compose mail")));
+            _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("Open compose Window")));
+            _recognizer.LoadGrammar(new DictationGrammar());
+            _recognizer.SpeechRecognized += speechRecognitionWithDictationGrammar_SpeechRecognized;
+            _recognizer.SetInputToDefaultAudioDevice();
+            _recognizer.RecognizeAsync(RecognizeMode.Multiple);
+        }
+
+        List<string> listEmails;
+        bool IsSubjectValid = false;
+        bool IsAttachmentValid = false;
+        List<string> attachemnts = new List<string>();
+        private void speechRecognitionWithDictationGrammar_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+
+            //  MessageBox.Show(e.Result.Text);
+            if (txtEmail.Text == "")
+            {
+                txtEmail.Focus();
+                VerifyUserandMovetoSubject(e);
+                return;
+            }
+
+            //Only if you say this comment the control move to attachment
+            if (e.Result.Text.Contains("add attachment to this mail"))
+            {
+                IsSubjectValid = true;
+                txtAttachment.Focus();
+                synth.SpeakAsync(string.Format("Please choose a attachment"));
+                string folderPath = @"D:\test";
+                synth.SpeakAsync(string.Format("We have the following attachments"));
+           
+                foreach (string file in Directory.EnumerateFiles(folderPath, "*.txt"))
+                {
+
+                    attachemnts.Add(file.Replace("D:\\test\\","").Replace(".txt",""));
+                }
+                if (attachemnts.Count == 0)
+                {
+                    synth.SpeakAsync(string.Format("Sorry there is no attachment in the folder,Please ask your assistant to add the attachments to the folder"));
+                }
+
+                int FileId = 1;
+                foreach (var attachFile in attachemnts)
+                {
+                    synth.SpeakAsync(string.Format(FileId.ToString()));
+                    synth.SpeakAsync(string.Format(attachFile));
+                    FileId++;
+                }
+
+                if (attachemnts.Count>0)
+                {
+                    synth.SpeakAsync(string.Format("Please choose any of the attachment"));
+                }
+
+                
+
+                if (txtAttachment.Text == "")
+                {
+                    txtAttachment.Focus();
+
+                }
+                else
+                {
+                    synth.Speak(string.Format("You choosed the attachment {0}", txtAttachment.Text));
+                }
+
+                return;
+            }
+
+
+
+
+
+            if (!IsSubjectValid)
+            {
+                if (txtSubject.Focus() == true)
+                {
+                    txtSubject.Text = e.Result.Text.ToString();
+                    synth.Speak(string.Format("you told {0} as the subject", txtSubject.Text));
+                    return;
+                }
+            }
+
+
+            if(IsSubjectValid && txtAttachment.Text =="")
+            {
+                foreach (var attachFile in attachemnts)
+                {
+                    if (e.Result.Text.ToLower().Contains(attachFile.ToLower()))
+                    {
+                        if (txtAttachment.Text == "")
+                        {
+                            txtAttachment.Text = attachFile;
+                            if (IsSubjectValid && txtAttachment.Text != "")
+                            {
+                                synth.Speak(string.Format("you told {0} as the attachment", txtAttachment.Text));
+                                txtAttachment.Text = e.Result.Text.ToString();
+                                synth.Speak(string.Format("Please tell me the body for this mail", e.Result.Text));
+                                richTextBox1.Focus();
+                                IsAttachmentValid = true;
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            txtAttachment.Text = "";
+                        }
+
+                    }
+                }
+            }
+   
+
+
+
+            if (e.Result.Text.ToLower().Contains("sent mail") || e.Result.Text.ToLower().Contains("ok") && txtEmail.Text != "" && richTextBox1.Text != "")
+            {
+                if (richTextBox1.Text == "")
+                {
+                    richTextBox1.Focus();
+                    return;
+                }
+
+                SentMail();
+                //synth.SpeakAsync(string.Format("Mail sent sucessfully"));
+                _recognizer.Dispose();
+                this.Close();
+                return;
+            }
+
+
+
+
+            if (IsAttachmentValid)
+            {
+                synth.Speak(string.Format("you told {0} as the body", e.Result.Text));
+                richTextBox1.Text = e.Result.Text.ToString();
+                synth.Speak(string.Format("Please say ok or sent mail to sent this mail", e.Result.Text));
+                btnSent.Focus();
+            }
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+        private void VerifyUserandMovetoSubject(SpeechRecognizedEventArgs e)
+        {
+            UserBusinessModel businesslayer = new UserBusinessModel();
+            List<User> ListUser = businesslayer.GetUsers();
+            listEmails = ListUser.Select(x => x.EmailID.ToLower()).ToList();
+            foreach (var listEmail in listEmails)
+            {
+                if (e.Result.Text.Contains(listEmail))
+                {
+                    txtEmail.Text = listEmail;
+                    synth.Speak("Ok Please say the subject for the mail");
+                    txtSubject.Focus();
+                }
             }
         }
 
@@ -285,7 +462,9 @@ namespace SpeechToText
                     btnDraft.Hide();
                 }
             }
-
+            synth.SpeakAsync("You are now in compose window");
+            synth.SpeakAsync("Please tell the email id to sent");
+            SpeechRecognitionWithDictationGrammar();
         }
 
         private void MailView_KeyUp(object sender, KeyEventArgs e)
@@ -312,14 +491,14 @@ namespace SpeechToText
         private void SentMail()
         {
             MailServer _composeMail = new MailServer();
-            if (Mailtype.ComposeMail == MailTypeEnum || Mailtype.ReplyMail == MailTypeEnum || Mailtype.ForwardMail==MailTypeEnum)
+            if (Mailtype.ComposeMail == MailTypeEnum || Mailtype.ReplyMail == MailTypeEnum || Mailtype.ForwardMail == MailTypeEnum)
             {
                 Mail _mail = new Mail();
                 _mail.EmailID = txtEmail.Text;
                 _mail.Subject = txtSubject.Text;
                 _mail.Message = richTextBox1.Text;
                 _mail.FromEmailId = LoginCredentials.LoggedEmailId;
-                _mail.FileName = AttachmentName;
+                _mail.FileName = txtAttachment.Text.Trim();
                 string IsEmptyUSer = IsEmpty.CheckIfEmpty_Mail(_mail);
                 int User_id = UserBusinessModel.GetUser(_mail.EmailID);
 
@@ -329,7 +508,7 @@ namespace SpeechToText
                 }
                 else
                 {
-                    
+
                     if (User_id != 0)
                     {
                         _mail.UserId = User_id;
@@ -340,11 +519,43 @@ namespace SpeechToText
                             {
                                 synth.Speak("The mail sucessfully sent to the recipient");
                                 synth.Speak("We are back to our main window");
-                                this.Close();
+                                List<Form> forms = new List<Form>();
+                                foreach (Form f in Application.OpenForms)
+                                {
+
+                                    forms.Add(f);
+                                }
+
+                                foreach (Form f in forms)
+                                {
+                                    f.Hide();
+                                }
+
+
+
+                                Mailbox _mailbox = new Mailbox();
+                                _mailbox.Show();
                             }
                             else
                             {
-                                MessageBox.Show("Mail sent sucessfully", "Sucess", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                synth.Speak("The mail sucessfully sent to the recipient");
+                                synth.Speak("We are back to our main window");
+                                List<Form> forms = new List<Form>();
+                                foreach (Form f in Application.OpenForms)
+                                {
+
+                                    forms.Add(f);
+                                }
+
+                                foreach (Form f in forms)
+                                {
+                                    f.Hide();
+                                }
+
+
+                                
+                                Mailbox _mailbox = new Mailbox();
+                                _mailbox.Show();
                             }
                         }
 
@@ -373,7 +584,7 @@ namespace SpeechToText
                     {
                         MessageBox.Show("Mail sent sucessfully", "Sucess", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
-                   
+
                 }
                 else
                 {
@@ -381,7 +592,7 @@ namespace SpeechToText
                 }
             }
 
-            
+
         }
 
         private void btnDraft_Click(object sender, EventArgs e)
@@ -427,14 +638,14 @@ namespace SpeechToText
         {
             if (SpeechModule.GetStatus())
             {
-                
-                synth.SetOutputToDefaultAudioDevice();
+
+
                 int User_id = UserBusinessModel.GetUser(txtEmail.Text);
-                if (txtEmail.Text!="")
+                if (txtEmail.Text != "")
                 {
                     synth.Speak("You said " + txtEmail.Text + "as the mail Id");
                     //synth.Speak("Please say the subject for this mail");
-                  //  SpeechToTextalgorithm();
+                    //  SpeechToTextalgorithm();
                 }
                 else
                 {
@@ -457,17 +668,17 @@ namespace SpeechToText
         {
             if (SpeechModule.GetStatus())
             {
-                 
-                synth.SetOutputToDefaultAudioDevice();
-                
-                if (txtSubject.Text!="")
+
+
+
+                if (txtSubject.Text != "")
                 {
                     synth.Speak("You said " + txtSubject.Text + "as the subject for this mail");
-                   // synth.Speak("Please say the message that you need to sent to your recipient");
-                   // richTextBox1.Focus();
-                  //  SpeechToTextalgorithm();
+                    // synth.Speak("Please say the message that you need to sent to your recipient");
+                    // richTextBox1.Focus();
+                    //  SpeechToTextalgorithm();
                 }
-                
+
                 //else
                 //{
 
@@ -488,7 +699,7 @@ namespace SpeechToText
                 if (richTextBox1.Text != "")
                 {
                     synth.Speak("You said " + richTextBox1.Text + "as the message for this mail");
-                  //  btnSent.Focus();
+                    //  btnSent.Focus();
                     //SpeechToTextalgorithm();
                 }
                 //else
@@ -497,7 +708,7 @@ namespace SpeechToText
 
                 //    synth.Speak("you havnt told any message");
                 //    richTextBox1.Focus();
-                     
+
 
                 //}
             }
@@ -505,7 +716,7 @@ namespace SpeechToText
 
         private void txtEmail_Leave(object sender, EventArgs e)
         {
-            if(txtEmail.Text!="")
+            if (txtEmail.Text != "")
             {
                 txtEmail.Text = txtEmail.Text.ToLower();
                 txtEmail_Leave();
@@ -515,7 +726,7 @@ namespace SpeechToText
 
         private void txtSubject_Leave(object sender, EventArgs e)
         {
-            if(txtSubject.Text!="")
+            if (txtSubject.Text != "")
             {
                 txtSubject_Leave();
             }
@@ -523,7 +734,7 @@ namespace SpeechToText
 
         private void richTextBox1_Leave(object sender, EventArgs e)
         {
-            if(richTextBox1.Text!="")
+            if (richTextBox1.Text != "")
             {
                 richTextBox1_Leave();
             }
@@ -552,7 +763,7 @@ namespace SpeechToText
 
         private void button1_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         string AttachmentName = "NIL";
@@ -569,7 +780,7 @@ namespace SpeechToText
                 return;
             }
 
-            if (op1.FileName!="")
+            if (op1.FileName != "")
             {
                 var sourcePath = op1.FileName;
                 if (sourcePath != null || sourcePath != "" || op1.Filter != "")
@@ -585,8 +796,8 @@ namespace SpeechToText
                 }
             }
 
-           
-           
+
+
 
         }
     }
