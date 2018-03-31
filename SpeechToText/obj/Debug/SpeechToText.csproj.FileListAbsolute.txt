@@ -652,3 +652,6 @@ C:\Users\ramjin.mahadevan\Desktop\Vmail\Vmail\SpeechToText\bin\Debug\bin\Debug\Y
 \\DESKTOP-GENB0UD\Net Share\fg\31032018\Vmail\Vmail\SpeechToText\bin\Debug\SpeechToText.exe.config
 \\DESKTOP-GENB0UD\Net Share\fg\31032018\Vmail\Vmail\SpeechToText\obj\Debug\SpeechToText.exe
 \\DESKTOP-GENB0UD\Net Share\fg\31032018\Vmail\Vmail\SpeechToText\obj\Debug\SpeechToText.pdb
+C:\Users\RamjinM\Desktop\New folder (16)\Vmail\SpeechToText\bin\Debug\SpeechToText.exe.config
+C:\Users\RamjinM\Desktop\New folder (16)\Vmail\SpeechToText\obj\Debug\SpeechToText.exe
+C:\Users\RamjinM\Desktop\New folder (16)\Vmail\SpeechToText\obj\Debug\SpeechToText.pdb

@@ -13,7 +13,7 @@ namespace Vmail._6.Infrastructure.MainModule
       public  static void Explore()
         {
 
-
+          //
 
             manualResetEvent = new ManualResetEvent(false);
             Console.WriteLine("To recognize speech, and write 'test' to the console, press 0");
